@@ -392,6 +392,8 @@ activateButtons()
 
 async function loadDeliveries(){
 
+  const table = document.getElementById('tableBody')
+
   const querySnapshot = await getDocs(
     collection(db, 'deliveries')
   )
@@ -444,5 +446,6 @@ async function loadDeliveries(){
   activateButtons()
 
 }
+console.log('Loading deliveries...')
 
 loadDeliveries()
