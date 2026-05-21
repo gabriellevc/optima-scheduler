@@ -3,7 +3,9 @@ import { db } from './firebase'
 import {
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
 } from 'firebase/firestore'
 
 import jsPDF from 'jspdf'
@@ -349,7 +351,15 @@ function activateButtons(){
 
       deleteBtn.onclick = () => {
 
-        row.remove()
+        const id = row.dataset.id
+
+if(id){
+
+  deleteDoc(doc(db, 'deliveries', id))
+
+}
+
+row.remove()
 
       }
 
@@ -398,12 +408,12 @@ async function loadDeliveries(){
     collection(db, 'deliveries')
   )
 
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((firebaseDoc) => {
 
-    const data = doc.data()
+    const data = firebaseDoc.data()
 
     const row = `
-      <tr>
+      <tr data-id="${firebaseDoc.id}">
 
         <td>${data.company}</td>
         <td>${data.dateRequested}</td>
