@@ -1,0 +1,74 @@
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f4f4;
+}
+
+.container{
+  padding:20px;
+}
+
+h1{
+  margin-bottom:20px;
+}
+
+.form{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:10px;
+  margin-bottom:20px;
+}
+
+input,
+select,
+button{
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+button{
+  background:#1b1b1b;
+  color:white;
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+
+th{
+  background:#1b1b1b;
+  color:white;
+}
+
+th, td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:left;
+}
+.no-status{
+  background:#ffb3b3;
+  color:#990000;
+  font-weight:bold;
+}
+
+.yes-status{
+  background:#b8ffb8;
+  color:#006600;
+  font-weight:bold;
+}
+
+.confirm-btn{
+  background:#008000;
+}
+
+.delete-btn{
+  background:#cc0000;
+}
+
+.edit-btn{
+  background:#0066cc;
+}
