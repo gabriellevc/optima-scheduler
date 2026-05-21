@@ -4,6 +4,10 @@ import {
   collection,
   addDoc
 } from 'firebase/firestore'
+
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
+
 document.querySelector('#app').innerHTML = `
 
 <div class="container">
@@ -37,6 +41,10 @@ document.querySelector('#app').innerHTML = `
     <button id="addBtn">
       Add
     </button>
+
+    <button id="pdfBtn">
+  Generate PDFs
+</button>
 
   </div>
 
@@ -193,5 +201,65 @@ editBtn.addEventListener('click', () => {
   }
 
 })
+
+})
+
+document.getElementById('pdfBtn').addEventListener('click', () => {
+
+  const rows = document.querySelectorAll('#tableBody tr')
+
+  const companies = {}
+
+  rows.forEach(row => {
+
+    const cells = row.querySelectorAll('td')
+
+    const company = cells[0].innerText
+
+    if(!companies[company]){
+      companies[company] = []
+    }
+
+    companies[company].push([
+      cells[1].innerText,
+      cells[2].innerText,
+      cells[3].innerText,
+      cells[4].innerText,
+      cells[5].innerText,
+      cells[6].innerText,
+      cells[7].innerText,
+      cells[8].innerText
+    ])
+
+  })
+
+  Object.keys(companies).forEach(company => {
+
+    const doc = new jsPDF()
+
+    doc.text(`${company} Deliveries`, 14, 15)
+
+    autoTable(doc, {
+
+      startY: 25,
+
+      head: [[
+        'Date Requested',
+        'Type',
+        'Qnt',
+        'Remarks',
+        'Site',
+        'Booking Date',
+        'Time',
+        'Confirmed'
+      ]],
+
+      body: companies[company]
+
+    })
+
+    doc.save(`${company}.pdf`)
+
+  })
 
 })
