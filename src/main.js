@@ -5,7 +5,8 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
-  doc
+  doc,
+  updateDoc
 } from 'firebase/firestore'
 
 import jsPDF from 'jspdf'
@@ -336,14 +337,26 @@ function activateButtons(){
 
     if(confirmBtn){
 
-      confirmBtn.onclick = () => {
+confirmBtn.onclick = async () => {
 
-        statusCell.innerHTML = 'YES'
+  statusCell.innerHTML = 'YES'
 
-        statusCell.classList.remove('no-status')
-        statusCell.classList.add('yes-status')
+  statusCell.classList.remove('no-status')
+  statusCell.classList.add('yes-status')
 
-      }
+  const id = row.dataset.id
+
+  if(id){
+
+    await updateDoc(doc(db, 'deliveries', id), {
+
+      confirmed: 'YES'
+
+    })
+
+  }
+
+}
 
     }
 
@@ -367,7 +380,7 @@ row.remove()
 
     if(editBtn){
 
-      editBtn.onclick = () => {
+editBtn.onclick = async () => {
 
         const newQnt = prompt('New Quantity:')
         const newRemarks = prompt('New Remarks:')
@@ -389,6 +402,21 @@ row.remove()
         if(newTime){
           row.cells[7].innerHTML = newTime
         }
+
+        const id = row.dataset.id
+
+if(id){
+
+  await updateDoc(doc(db, 'deliveries', id), {
+
+    qnt: row.cells[3].innerHTML,
+    remarks: row.cells[4].innerHTML,
+    bookingDate: row.cells[6].innerHTML,
+    time: row.cells[7].innerHTML
+
+  })
+
+}
 
       }
 
