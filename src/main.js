@@ -17,12 +17,30 @@ document.querySelector('#app').innerHTML = `
   <div class="form">
 
     <select id="company">
-      <option value="">Company</option>
-      <option value="Predalle">Predalle</option>
-      <option value="Naxxar DC">Naxxar DC</option>
-      <option value="HMS">HMS</option>
-      <option value="Attard Concrete">Attard Concrete</option>
-    </select>
+
+  <option value="">Company</option>
+
+  <option value="ABCM Concrete">ABCM Concrete</option>
+
+  <option value="B&B Predalle">B&B Predalle</option>
+
+  <option value="Bonello Concrete">Bonello Concrete</option>
+
+  <option value="KAK Steel">KAK Steel</option>
+
+  <option value="Matsurv">Matsurv</option>
+
+  <option value="Rock Cut Concrete">Rock Cut Concrete</option>
+
+  <option value="ABBS Delivery">ABBS Delivery</option>
+
+  <option value="Secis Pump">Secis Pump</option>
+
+  <option value="Crane">Crane</option>
+
+  <option value="HMS Delivery">HMS Delivery</option>
+
+</select>
 
     <input type="date" id="dateRequested">
 
