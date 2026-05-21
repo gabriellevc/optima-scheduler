@@ -50,7 +50,43 @@ document.querySelector('#app').innerHTML = `
 
     <input type="text" id="remarks" placeholder="Remarks">
 
-    <input type="text" id="site" placeholder="Site">
+    <select id="site">
+
+  <option value="">Select Site</option>
+
+  <option value="Attard New Site Jeff">Attard New Site Jeff</option>
+
+  <option value="Attard New Site Kevin">Attard New Site Kevin</option>
+
+  <option value="Burmarrad">Burmarrad</option>
+
+  <option value="Bidnija 2">Bidnija 2</option>
+
+  <option value="Bidnija Mario">Bidnija Mario</option>
+
+  <option value="Naxxar Road">Naxxar Road</option>
+
+  <option value="Balzan">Balzan</option>
+
+  <option value="Paceville Hotel">Paceville Hotel</option>
+
+  <option value="Bathroom Design">Bathroom Design</option>
+
+  <option value="Zebbug">Zebbug</option>
+
+  <option value="Paola">Paola</option>
+
+  <option value="Bajjada Rabat">Bajjada Rabat</option>
+
+  <option value="Qannic">Qannic</option>
+
+  <option value="Mosta Tonio Sultana">Mosta Tonio Sultana</option>
+
+  <option value="Manikata">Manikata</option>
+
+  <option value="Mosta Marius">Mosta Marius</option>
+
+</select>
 
     <input type="date" id="bookingDate">
 
