@@ -2,7 +2,8 @@ import './style.css'
 import { db } from './firebase'
 import {
   collection,
-  addDoc
+  addDoc,
+  getDocs
 } from 'firebase/firestore'
 
 import jsPDF from 'jspdf'
@@ -178,6 +179,8 @@ document.getElementById('addBtn').addEventListener('click', async () => {
 
   table.innerHTML += row
 
+  activateButtons()
+
   await addDoc(collection(db, 'deliveries'), {
 
   company,
@@ -317,3 +320,129 @@ document.getElementById('pdfBtn').addEventListener('click', () => {
   })
 
 })
+
+function activateButtons(){
+
+  const rows = document.querySelectorAll('#tableBody tr')
+
+  rows.forEach(row => {
+
+    const confirmBtn = row.querySelector('.confirm-btn')
+    const deleteBtn = row.querySelector('.delete-btn')
+    const editBtn = row.querySelector('.edit-btn')
+    const statusCell = row.querySelector('.status')
+
+    if(confirmBtn){
+
+      confirmBtn.onclick = () => {
+
+        statusCell.innerHTML = 'YES'
+
+        statusCell.classList.remove('no-status')
+        statusCell.classList.add('yes-status')
+
+      }
+
+    }
+
+    if(deleteBtn){
+
+      deleteBtn.onclick = () => {
+
+        row.remove()
+
+      }
+
+    }
+
+    if(editBtn){
+
+      editBtn.onclick = () => {
+
+        const newQnt = prompt('New Quantity:')
+        const newRemarks = prompt('New Remarks:')
+        const newBookingDate = prompt('New Booking Date:')
+        const newTime = prompt('New Time:')
+
+        if(newQnt){
+          row.cells[3].innerHTML = newQnt
+        }
+
+        if(newRemarks){
+          row.cells[4].innerHTML = newRemarks
+        }
+
+        if(newBookingDate){
+          row.cells[6].innerHTML = newBookingDate
+        }
+
+        if(newTime){
+          row.cells[7].innerHTML = newTime
+        }
+
+      }
+
+    }
+
+  })
+
+}
+
+activateButtons()
+
+async function loadDeliveries(){
+
+  const querySnapshot = await getDocs(
+    collection(db, 'deliveries')
+  )
+
+  querySnapshot.forEach((doc) => {
+
+    const data = doc.data()
+
+    const row = `
+      <tr>
+
+        <td>${data.company}</td>
+        <td>${data.dateRequested}</td>
+        <td>${data.type}</td>
+        <td>${data.qnt}</td>
+        <td>${data.remarks}</td>
+        <td>${data.site}</td>
+        <td>${data.bookingDate}</td>
+        <td>${data.time}</td>
+
+        <td class="status ${data.confirmed === 'YES' ? 'yes-status' : 'no-status'}">
+          ${data.confirmed}
+        </td>
+
+        <td>
+          <button class="confirm-btn">
+            Confirm
+          </button>
+        </td>
+
+        <td>
+          <button class="delete-btn">
+            Delete
+          </button>
+        </td>
+
+        <td>
+          <button class="edit-btn">
+            Edit
+          </button>
+        </td>
+
+      </tr>
+    `
+
+    table.innerHTML += row
+
+  })
+
+  activateButtons()
+
+}
+
+loadDeliveries()
